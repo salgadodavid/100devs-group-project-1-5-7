@@ -12,6 +12,10 @@ const TodoSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true
+  },
+  exercisePoints: {
+    type: Number,
+    required: true
   }
 })
 

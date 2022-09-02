@@ -5,15 +5,18 @@ module.exports = {
         console.log(req.user)
         try{
             const todoItems = await Todo.find({userId:req.user.id})
+            console.log(todoItems)
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user})
+            const points = todoItems.map(obj => obj.exercisePoints)
+            const score = points.reduce((a,c) => a + c, 0 )
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: score})  //score: req.score
         }catch(err){
             console.log(err)
         }
     },
     createTodo: async (req, res)=>{
         try{
-            await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id})
+            await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id, exercisePoints: 0})
             console.log('Todo has been added!')
             res.redirect('/todos')
         }catch(err){
@@ -23,7 +26,8 @@ module.exports = {
     markComplete: async (req, res)=>{
         try{
             await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
-                completed: true
+                completed: true,
+                exercisePoints: 10
             })
             console.log('Marked Complete')
             res.json('Marked Complete')
@@ -34,7 +38,8 @@ module.exports = {
     markIncomplete: async (req, res)=>{
         try{
             await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
-                completed: false
+                completed: false,
+                exercisePoints: 0
             })
             console.log('Marked Incomplete')
             res.json('Marked Incomplete')

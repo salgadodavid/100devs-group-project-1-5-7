@@ -1,15 +1,17 @@
 const Todo = require('../models/Todo')
+const User = require('../models/User')
 
 module.exports = {
     getTodos: async (req,res)=>{
         console.log(req.user)
         try{
-            const todoItems = await Todo.find({userId:req.user.id})
-            console.log(todoItems)
+            const todoItems = await Todo.find({userId:req.user.id}) 
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
-            const points = todoItems.map(obj => obj.exercisePoints)
+            const points = todoItems.map(obj => obj.exercisePoints) 
             const score = points.reduce((a,c) => a + c, 0 )
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: score})  //score: req.score
+            //total Score
+            const cummulativePoints = req.user.userScore
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: score, totalScore: cummulativePoints})  
         }catch(err){
             console.log(err)
         }
@@ -31,6 +33,11 @@ module.exports = {
             })
             console.log('Marked Complete')
             res.json('Marked Complete')
+            await User.findOneAndUpdate({_id: req.user._id},{  //total score
+                $inc : {userScore : 10}
+            })
+            console.log('Added total score')
+            res.json('Added total score')
         }catch(err){
             console.log(err)
         }
@@ -43,6 +50,11 @@ module.exports = {
             })
             console.log('Marked Incomplete')
             res.json('Marked Incomplete')
+            await User.findOneAndUpdate({_id: req.user._id},{ //total score
+                 $inc : {userScore : -10}
+             })
+            console.log('Updated Total Score')
+            res.json('Updated Total Score')
         }catch(err){
             console.log(err)
         }

@@ -1,5 +1,6 @@
 const Todo = require('../models/Todo')
 const User = require('../models/User')
+const Wod = require('../public/js/exercises')
 
 module.exports = {
     getTodos: async (req,res)=>{
@@ -9,9 +10,11 @@ module.exports = {
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
             const points = todoItems.map(obj => obj.exercisePoints) 
             const score = points.reduce((a,c) => a + c, 0 )
+            const excercises = Wod.day1
+            console.log(excercises)
             //total Score
             const cummulativePoints = req.user.userScore
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: score, totalScore: cummulativePoints})  
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: score, totalScore: cummulativePoints, wod: excercises})  
         }catch(err){
             console.log(err)
         }

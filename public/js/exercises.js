@@ -1,8 +1,8 @@
-const day1 = [
-       "Pull-ups",
-       "Squats",
-        "Rows"    
-]
+
+
+const day1 = [ "Pull-ups", "Squats", "Rows"]
+
+ module.exports = day1  //this allows us to export the array
 
 // const day2 = [
 //     {

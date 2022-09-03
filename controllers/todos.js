@@ -10,7 +10,7 @@ module.exports = {
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
             const points = todoItems.map(obj => obj.exercisePoints) 
             const score = points.reduce((a,c) => a + c, 0 )
-            const excercises = Wod.day1
+            const excercises = Wod
             console.log(excercises)
             //total Score
             const cummulativePoints = req.user.userScore

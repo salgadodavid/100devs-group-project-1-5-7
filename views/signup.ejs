@@ -12,7 +12,9 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body class="is-preload">
+		
 		<div id="page-wrapper">
+			<img class="bg-corner" src="images/corner1.jpg">
 
 				<!-- Header -->
 				<header id="header" class="alt">
@@ -28,19 +30,19 @@
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>Sign up<h2>
+						<h2> <img src="images/logo.png" alt="CrossFlex - Ultimate Daily Workout"> <h2>
 					</header>
 					<div class="box">
 						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-						<h3>This is a subheading</h3>
-						<p>descriptions can go here</p>
+						<h3>Sign Up</h3>
+
+						<% if (locals.messages.errors) { %>
+							<% messages.errors.forEach( el => { %>
+								<div class="alert alert-danger"><%= el.msg %></div>
+							<% }) %>    
+						<% } %>
 						<div class="row">
 							
-							<% if (locals.messages.errors) { %>
-								<% messages.errors.forEach( el => { %>
-									<div class="alert alert-danger"><%= el.msg %></div>
-								<% }) %>    
-							<% } %>
 							<form action="/signup" method="POST">
 								<input type="text" name="userName" placeholder="User Name">
 								<input type="email" name="email" placeholder="Email">
@@ -64,7 +66,7 @@
 					<li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
 				</ul>
 				<ul class="copyright">
-					<li>&copy; 1-5-7. All rights reserved.</li>
+					<li>&copy; CrossFlex. All rights reserved.</li>
 				</ul>
 			</footer>
 

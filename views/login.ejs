@@ -12,8 +12,10 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body class="is-preload">
-		<div id="page-wrapper">
 
+		
+		<div id="page-wrapper">
+			<img class="bg-corner" src="images/corner1.jpg">
 				<!-- Header -->
 				<header id="header" class="alt">
 					<h1><a href="/">CrossFlex - Ultimate Daily Workout</a></h1>
@@ -28,24 +30,26 @@
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>Log In<h2>
+						<h2> <img src="images/logo.png" alt="CrossFlex - Ultimate Daily Workout"> <h2>
 					</header>
 					<div class="box">
 						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-						<h3>This is a subheading</h3>
-						<p>descriptions can go here</p>
+						<h3>Log In</h3>
+						<p>Enter your email and password to log in</p>
+
+						<% if (locals.messages.errors) { %>
+							<% messages.errors.forEach( el => { %>
+								<div class="alert alert-danger"><%= el.msg %></div>
+							<% }) %>    
+						<% } %>
+						<% if (locals.messages.info) { %>
+							<% messages.info.forEach( el => { %>
+								<div class="alert alert-danger"><%= el.msg %></div>
+							<% }) %>    
+						<% } %>
 						<div class="row">
 							
-							<% if (locals.messages.errors) { %>
-								<% messages.errors.forEach( el => { %>
-									<div class="alert alert-danger"><%= el.msg %></div>
-								<% }) %>    
-							<% } %>
-							<% if (locals.messages.info) { %>
-								<% messages.info.forEach( el => { %>
-									<div class="alert alert-danger"><%= el.msg %></div>
-								<% }) %>    
-							<% } %>
+							
 							<form action="/login" method="POST">
 								<input type="email" name="email" placeholder="Email">
 								<input type="password" name="password" placeholder="Password">
@@ -67,7 +71,7 @@
 					<li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
 				</ul>
 				<ul class="copyright">
-					<li>&copy; 1-5-7. All rights reserved.</li>
+					<li>&copy; CrossFlex. All rights reserved.</li>
 				</ul>
 			</footer>
 

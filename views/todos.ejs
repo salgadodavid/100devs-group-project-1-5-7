@@ -1,45 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <h1>Work out of the day</h1>
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>CrossFlex - Ultimate Daily Workout</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
 
-    <ul> 
-        <% wod.forEach( el => { %>
-                <li>
-                    <span class= 'not'> <%= el %></span>
-                </li>
-        <% }) %>    
-     </ul>
+				<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="/">CrossFlex - Ultimate Daily Workout</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li><a href="/logout">Logout</a></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+					<header>
+						<h2>Daily Workout Heading</h2>
+
+					</header>
+					<div class="box">
+						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
+						<h3>This is a subheading placeholder</h3>
+						<p>and a description can go here</p>
+						<div class="row">
+							
+							<h1>Work out of the day</h1>
+
+							<ul> 
+								<% wod.forEach( el => { %>
+										<li>
+											<span class= 'not'> <%= el %></span>
+										</li>
+								<% }) %>    
+							 </ul>
+						
+						
+							<ul> 
+							<% todos.forEach( el => { %>
+									<li class='todoItem' data-id='<%=el._id%>'>
+										<span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+										<span class='del'> Delete </span>
+									</li>
+							<% }) %>    
+							</ul>
+						
+							<h2><%= user.userName %> has <%= left %> exercise(s) left to do.</h2>
+						
+							<h3>Your daily score is: <%= dailyScore %></h3>
+							<h3>Your Total score is: <%= totalScore %></h3>
+						
+							<form action="/todos/createTodo" method='POST'>
+								<input type="text" placeholder="Enter Todo Item" name='todoItem'>
+								<input type="submit">
+							</form>
 
 
-    <ul> 
-    <% todos.forEach( el => { %>
-            <li class='todoItem' data-id='<%=el._id%>'>
-                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
-                <span class='del'> Delete </span>
-            </li>
-    <% }) %>    
-    </ul>
+						</div>
+					</div>
+				</section>
 
-    <h2><%= user.userName %> has <%= left %> exercise(s) left to do.</h2>
+			<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+					<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+					<li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; CrossFlex. All rights reserved.</li>
+				</ul>
+			</footer>
 
-    <h3>Your daily score is: <%= dailyScore %></h3>
-    <h3>Your Total score is: <%= totalScore %></h3>
+	</div>
 
-    <form action="/todos/createTodo" method='POST'>
-        <input type="text" placeholder="Enter Todo Item" name='todoItem'>
-        <input type="submit">
-    </form>
+	<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.dropotron.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
-    <a href="/logout">Logout</a>
-
-    <script src="js/main.js"></script>
 </body>
 </html>

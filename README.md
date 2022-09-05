@@ -3,6 +3,9 @@
 A Simple ToDo App is built using the MVC Architecture, we have also implemented "authorization" so folx can sign up, customize & personalize the app
 
 ---
+Link to project: https://crossflex.herokuapp.com
+
+---
 
 > Be sure to add that lovely star 😀 and fork it for your own copy
 

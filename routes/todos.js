@@ -7,9 +7,13 @@ router.get('/', ensureAuth, todosController.getTodos)
 
 router.post('/createTodo', todosController.createTodo)
 
-router.put('/markComplete', todosController.markComplete)
+router.put('/markComplete', todosController.markComplete)//Add-on
 
-router.put('/markIncomplete', todosController.markIncomplete)
+router.put('/markIncomplete', todosController.markIncomplete) //Add-on
+
+router.put('/markWodComplete', todosController.markWodComplete) // WOD
+
+// router.put('/markWodIncomplete', todosController.markWodIncomplete) //WOD
 
 router.delete('/deleteTodo', todosController.deleteTodo)
 

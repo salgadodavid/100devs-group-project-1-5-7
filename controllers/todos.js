@@ -1,24 +1,49 @@
 const Todo = require('../models/Todo')
 const User = require('../models/User')
-const Wod = require('../public/js/exercises')
+const Wod = require('../models/Wod')
+const moment = require('moment')
 
 module.exports = {
     getTodos: async (req,res)=>{
-        console.log(req.user)
+        // console.log(req.user)
         try{
+            //WOD                                                            
+             //Searches WOD based on user and date
+            const today = moment().startOf('day')
+            const wod = await Wod.find({ date: {
+                $gte: today.toDate(),
+                $lte: moment(today).endOf('day').toDate()
+            }})
+            // console.log(wod)
+            const exercises = wod[0].exercises
+            // console.log(exercises)  
+            //Additional exercises
             const todoItems = await Todo.find({userId:req.user.id}) 
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
-            const points = todoItems.map(obj => obj.exercisePoints) 
-            const score = points.reduce((a,c) => a + c, 0 )
-            const excercises = Wod
-            console.log(excercises)
-            //total Score
-            const cummulativePoints = req.user.userScore
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: score, totalScore: cummulativePoints, wod: excercises})  
+            //Scores
+            const todayScore = req.user.dailyScore   //Daily Score       
+            const cummulativePoints = req.user.userScore  //total Score
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: todayScore, totalScore: cummulativePoints, wod: exercises})  
         }catch(err){
             console.log(err)
         }
     },
+
+    // WOD Functionality
+    markWodComplete: async (req, res)=>{
+        try{
+            await User.findOneAndUpdate({_id: req.user._id},{  
+                
+                $inc : { userScore: 10, dailyScore: 10}//Updates both daily and total scores
+            })
+            console.log('Added total score')
+            res.json('Added total score')
+        }catch(err){
+            console.log(err)
+        }
+    },
+    
+    //Add-on exercises Functionality
     createTodo: async (req, res)=>{
         try{
             await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id, exercisePoints: 0})
@@ -71,5 +96,75 @@ module.exports = {
         }catch(err){
             console.log(err)
         }
-    }
-}    
+    },
+}
+    
+    // markWodIncomplete: async (req, res)=>{
+    //     try{
+    //         await Wod.findByIdAndUpdate('6314e27c7a21a03ced034cfe', {_id: req.body.todoIdFromJSFile},{
+    //             completed: false,
+    //         })
+    //         console.log('Marked Wod Incomplete')
+    //         res.json('Marked Wod Incomplete')
+    //         await User.findOneAndUpdate({_id: req.user._id},{ //total score
+    //              $inc : {userScore : -10, dailyScore: -10}
+    //          })
+    //         console.log('Updated Total Score')
+    //         res.json('Updated Total Score')
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+    // },
+ 
+
+
+ /*
+
+
+  //First Attempt hardcoded ID:
+        // const wod = await Wod.findById('6314e27c7a21a03ced034cfe'); This one displays it
+        // const exercises = wod.exercises
+        // console.log(exercises)
+           
+        
+        
+        PseudoCode Database
+
+
+
+
+            async function checkforWod ()
+            if user has today's wod move on
+            else run create wod
+            
+            //create wod
+            go to wods db and find the one from today
+
+             const wodToday = await Wod.find({ date: {
+                $gte: today.toDate(),
+                $lte: moment(today).endOf('day').toDate()
+            }})
+
+             //insertusername
+             wodToday[0].userName = req.user.id
+
+
+
+            //createOne
+
+            async function (req, res)=>{
+        try{
+            await Wod.create(wodToday)
+            console.log('Wod has been created')
+            res.redirect('/todos')
+        }catch(err){
+            console.log(err)
+        }
+
+            
+
+           
+
+
+
+            */

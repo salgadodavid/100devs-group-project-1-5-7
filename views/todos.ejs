@@ -11,9 +11,9 @@
     <h1>Work out of the day</h1>
 
     <ul> <!--wod-->
-        <% wod.forEach( el => { %>
-                <li>
-                    <span class= 'not'> <%= el %></span>
+        <% wod.forEach( obj => { %>
+                <li data-id='<%=obj._id%>'>
+                    <span id='<%=wod.indexOf(obj)%>' class='wod <%= obj.completed === true ? 'completed' : 'not'%>'> <%= obj.exercise %></span>
                 </li>
         <% }) %>    
      </ul>
@@ -22,7 +22,7 @@
     <ul> <!--user added excercises-->
     <% todos.forEach( el => { %>
             <li class='todoItem' data-id='<%=el._id%>'>
-                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+                <span class=' add-on <%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
                 <span class='del'> Delete </span>
             </li>
     <% }) %>    

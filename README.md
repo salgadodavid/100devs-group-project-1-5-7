@@ -1,8 +1,14 @@
 # Introduction
 
-The CrossFlex workout tracker encourages the healthy habit of daily exercise through gamification! 
+The CrossFlex daily workout tracker encourages the healthy habit of daily exercise through gamification! 
 
 It also takes the guesswork out of exercise by providing three exercises for you to complete each day.
+
+---
+## Screenshot
+
+![Screen Shot 2022-09-05 at 5 56 51 PM](https://user-images.githubusercontent.com/107150744/188525474-e36f4168-51f8-45a6-9d4f-4f447b13a13a.png)
+
 
 ---
 ## How It Works:
@@ -21,10 +27,6 @@ The user also has the option to manually enter a fourth exercise of their choosi
 
 ---
 
-## Screenshot
-
-![Screen Shot 2022-09-05 at 5 56 51 PM](https://user-images.githubusercontent.com/107150744/188525474-e36f4168-51f8-45a6-9d4f-4f447b13a13a.png)
----
 ## How It's Made:
 
 **Tech used:** HTML, CSS, JavaScript, MongoDB, Heroku
@@ -35,7 +37,7 @@ The user also has the option to manually enter a fourth exercise of their choosi
 
 ## Who is this for?
 
-Total beginners, workout aficionados, and everyone in-between! 
+Total beginners, workout aficionados, and everyone in between! 
 
 If you want to improve your health through exercise, this app is for you.
 
@@ -51,7 +53,7 @@ With the next update, we aim to implement a leaderboard function whereby logged-
 
 ## Lessons Learned:
 
-1. While working with both the moment module and the MongoDB Atlas service, we encountered a bug where users could not log in based on their respective time zones.
+1. While working with both the moment module and the MongoDB Atlas service, we encountered a bug where users could not log in based on their respective time zones. Resolved by making sure the time noted in the database read 2022-09-05T00]:00:00.000+00:00 instead of 2022-09-05T04:00:00.000+00:00.
 
 ---
 ## Contributors:

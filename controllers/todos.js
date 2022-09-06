@@ -14,10 +14,10 @@ module.exports = {
                 $gte: today.toDate(),
                 $lte: moment(today).endOf('day').toDate()
             }})
-            // console.log(wod)
+            console.log(wod)
             const exercises = wod[0].exercises
-            // console.log(exercises)  
-            //Additional exercises
+            console.log(exercises)  
+            //Additional exercisescummulativePoints
             const todoItems = await Todo.find({userId:req.user.id}) 
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
             //Scores
@@ -97,7 +97,7 @@ module.exports = {
             console.log(err)
         }
     },
-}
+} 
     
     // markWodIncomplete: async (req, res)=>{
     //     try{

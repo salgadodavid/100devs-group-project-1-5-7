@@ -52,7 +52,7 @@ async function markWodComplete(){
             })
         })
         const data = await response.json()
-        const newCSS = await markWodClassComplete(normalId);
+        // const newCSS = await markWodClassComplete(normalId);
         console.log(data)
         location.reload()
         

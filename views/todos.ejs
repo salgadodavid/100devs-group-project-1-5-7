@@ -13,6 +13,7 @@
 	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
+			<img class="bg-corner" src="images/corner1.jpg">
 
 				<!-- Header -->
 				<header id="header" class="alt">
@@ -28,45 +29,52 @@
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>Daily Workout Heading</h2>
+						<h2><img src="images/logo.png" alt="CrossFlex - Ultimate Daily Workout"></h2>
 
 					</header>
 					<div class="box">
 						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-						<h3>This is a subheading placeholder</h3>
-						<p>and a description can go here</p>
-						<div class="row">
-							
-							<h1>Work out of the day</h1>
+				
+						<div class="userbox" >
 
-                            <ul> <!--wod-->
-                                <% wod.forEach( obj => { %>
-                                        <li data-id='<%=obj._id%>'>
-                                            <span id='<%=wod.indexOf(obj)%>' class='wod <%= obj.completed === true ? 'completed' : 'not'%>'> <%= obj.exercise %></span>
-                                        </li>
-                                <% }) %>    
-                             </ul>
 
-							<ul> 
-                            <% todos.forEach( el => { %>
-                                    <li class='todoItem' data-id='<%=el._id%>'>
-                                        <span class=' add-on <%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
-                                        <span class='del'> Delete </span>
+							<div class="workoutbox">
+								<h2>Today's Workout</h2>
+								<ul> <!--wod-->
+                                	<% wod.forEach( obj => { %>
+                                    <li data-id='<%=obj._id%>'>
+                                    <span id='<%=wod.indexOf(obj)%>' class='wod <%= obj.completed === true ? 'completed' : 'not'%>'> <%= obj.exercise %></span>
                                     </li>
-                            <% }) %>    
-                            </ul>
+                                	<% }) %>    
+                             	</ul>
 							
+
+								<ul> 
+                            	<% todos.forEach( el => { %>
+                                	<li class='todoItem' data-id='<%=el._id%>'>
+                               		<span class=' add-on <%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+                                	<span class='del'> Delete </span>
+                                	</li>
+                            		<% }) %>    
+                           		</ul>
+
+								   <form action="/todos/createTodo" method='POST'>
+									<input type="text" placeholder="Enter Custom Excercise" name='todoItem'>
+									<input class="submit" type="submit">
+								</form>
+							</div>
+
+							<div class="scorebox">
+								<h2><%= user.userName %>'s Score</h2>
+								<h3>Daily Score: <%= dailyScore %></h3>
+								<h3>Total Score: <%= totalScore %></h3>
+								<h3><%= user.userName %> has <%= left %> exercise(s) left to do.</h3>
+						    </div>
 					
 						
-							<h2><%= user.userName %> has <%= left %> exercise(s) left to do.</h2>
+							
 						
-							<h3>Your daily score is: <%= dailyScore %></h3>
-							<h3>Your Total score is: <%= totalScore %></h3>
-						
-							<form action="/todos/createTodo" method='POST'>
-								<input type="text" placeholder="Enter Todo Item" name='todoItem'>
-								<input type="submit">
-							</form>
+							
 
 
 						</div>

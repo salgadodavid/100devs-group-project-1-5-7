@@ -3,6 +3,9 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic");
 
 
+
+
+
 /*Brand Colors*/
 
 :root {
@@ -275,6 +278,9 @@
 	.align-right {
 		text-align: right;
 	}
+
+
+
 
 /* Row */
 
@@ -3495,6 +3501,8 @@
 			}
 
 		/* Box */
+		
+		
 
 			.box {
 				padding: 3em 2em;
@@ -3934,3 +3942,53 @@
 			}
 
 	}
+
+
+.userbox{
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	width:100%;
+}
+
+.userbox span{
+	font-size:22px;
+}
+
+.userbox h2{
+	font-weight: bold;
+}
+.userbox h3{
+	font-size:22px;
+}
+
+.workoutbox{
+	display:flex;
+	flex-direction: column;
+	width:50%;
+	background:#c0aaaa1a;
+	border-radius: 15px;
+	padding:15px;
+	margin:15px
+	}
+
+
+.userbox input{
+width:60%;
+}
+
+.userbox .submit{
+	width:40%;
+	margin:5px 0px;
+	}
+
+.scorebox{
+	display:flex;
+	flex-direction: column;
+	width:30%;
+	border:1px solid var(--light);
+	border-radius: 15px;
+	padding:15px;
+	margin:15px
+	}
+

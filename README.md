@@ -1,6 +1,6 @@
 # Introduction
 
-The CrossFlex daily workout tracker encourages the healthy habit of daily exercise through gamification! 
+The CrossFlex Ultimate Daily Workout app encourages the healthy habit of daily exercise through gamification! 
 
 It also takes the guesswork out of exercise by providing three exercises for you to complete each day.
 

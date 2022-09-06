@@ -10,6 +10,7 @@ module.exports = {
             //WOD                                                            
              //Searches WOD based on user and date
             const today = moment().startOf('day')
+            console.log(today)
             const wod = await Wod.find({ date: {
                 $gte: today.toDate(),
                 $lte: moment(today).endOf('day').toDate()

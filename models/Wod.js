@@ -12,3 +12,5 @@ const WodSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Wod', WodSchema)
+
+

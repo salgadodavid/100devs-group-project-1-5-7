@@ -39,16 +39,18 @@
 
 
 							<div class="workoutbox">
-								<h2>Today's Workout</h2>
-								<ul> <!--wod-->
-                                	<% wod.forEach( obj => { %>
-                                    <li data-id='<%=obj._id%>'>
-                                    <span id='<%=wod.indexOf(obj)%>' class='wod <%= obj.completed === true ? 'completed' : 'not'%>'> <%= obj.exercise %></span>
-                                    </li>
-                                	<% }) %>    
-                             	</ul>
-							
-
+							<h2>Today's Workout</h2>
+									<% if (wod.length > 0) { %>
+										<ul>
+										<% wod.forEach( (obj, index) => { %>
+											<li data-id="<%=obj._id%>">
+											<span class="wod <%= obj.completed ? 'completed' : 'not' %>"><%= obj.exercise %></span>
+											</li>
+										<% }) %>
+										</ul>
+									<% } else { %>
+										<p>No workouts for today!</p>
+									<% } %>
 								<ul> 
                             	<% todos.forEach( el => { %>
                                 	<li class='todoItem' data-id='<%=el._id%>'>

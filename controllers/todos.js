@@ -3,30 +3,45 @@ const User = require('../models/User')
 const Wod = require('../models/Wod')
 const moment = require('moment')
 
+
+
 module.exports = {
-    getTodos: async (req,res)=>{
-        // console.log(req.user)
-        try{
-            //WOD                                                            
-             //Searches WOD based on user and date
-            const today = moment().startOf('day')
-            console.log(today)
-            const wod = await Wod.find({ date: {
-                $gte: today.toDate(),
-                $lte: moment(today).endOf('day').toDate()
-            }})
-            console.log(wod)
-            const exercises = wod[0].exercises
-            console.log(exercises)  
-            //Additional exercisescummulativePoints
-            const todoItems = await Todo.find({userId:req.user.id}) 
-            const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
-            //Scores
-            const todayScore = req.user.dailyScore   //Daily Score       
-            const cummulativePoints = req.user.userScore  //total Score
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, dailyScore: todayScore, totalScore: cummulativePoints, wod: exercises})  
-        }catch(err){
-            console.log(err)
+    getTodos: async (req, res) => {
+        try {
+            const today = moment.utc().startOf('day');
+            console.log(today);
+            const wods = await Wod.find({
+                date: {
+                    $gte: today.toDate(),
+                    $lte: moment(today).endOf('day').toDate()
+                },
+                userId: req.user.id  // Assuming you want to filter by the logged-in user's ID.
+            });
+            console.log(wods);
+
+            // Initialize exercises as an empty array to handle the case where no documents are found.
+            let exercises = [];
+            if (wods.length > 0) {
+                exercises = wods[0].exercises;
+            }
+            console.log(exercises);
+
+            const todoItems = await Todo.find({ userId: req.user.id });
+            const itemsLeft = await Todo.countDocuments({ userId: req.user.id, completed: false });
+            const todayScore = req.user.dailyScore;
+            const cummulativePoints = req.user.userScore;
+
+            res.render('todos.ejs', {
+                todos: todoItems,
+                left: itemsLeft,
+                user: req.user,
+                dailyScore: todayScore,
+                totalScore: cummulativePoints,
+                wod: exercises
+            });
+        } catch (err) {
+            console.log(err);
+            res.status(500).send("Error getting todos");
         }
     },
 
@@ -59,18 +74,25 @@ module.exports = {
             await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
                 completed: true,
                 exercisePoints: 10
-            })
-            console.log('Marked Complete')
-            res.json('Marked Complete')
-            await User.findOneAndUpdate({_id: req.user._id},{  //total score
+            });
+            console.log('Marked Complete');
+    
+            await User.findOneAndUpdate({_id: req.user._id},{  
                 $inc : {userScore : 10}
-            })
-            console.log('Added total score')
-            res.json('Added total score')
-        }catch(err){
-            console.log(err)
+            });
+            console.log('Added total score');
+    
+            // Combine both messages into a single response
+            res.json({
+                message: 'Marked Complete and Added total score'
+            });
+        } catch(err){
+            console.log(err);
+            // It's good practice to send error status and message in case of failure
+            res.status(500).json({error: 'An error occurred'});
         }
     },
+    
     markIncomplete: async (req, res)=>{
         try{
             await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
@@ -99,6 +121,39 @@ module.exports = {
         }
     },
 } 
+
+
+
+// Example function to seed today's WOD if it doesn't exist for the user
+async function seedTodaysWodForUser(userId) {
+    const today = moment.utc().startOf('day');
+    const existingWod = await Wod.findOne({
+        userId: userId,
+        date: {
+            $gte: today.toDate(),
+            $lte: moment(today).endOf('day').toDate()
+        }
+    });
+
+    if (!existingWod) {
+        const newWod = new Wod({
+            userId: userId,
+            date: new Date(),
+            exercises: [
+                { exercise: "50 Jumping Jacks", completed: false, wodPoints: 5 },
+                { exercise: "30 Second Handstand", completed: false, wodPoints: 10 },
+                { exercise: "20 Farmer's Carry", completed: false, wodPoints: 10 },
+                { exercise: "10", completed: false, wodPoints: 10 },
+            ]
+        });
+
+        await newWod.save();
+        console.log("Seeded today's WOD for user:", userId);
+    }
+}
+
+// Example usage
+// seedTodaysWodForUser(req.user.id);
     
     // markWodIncomplete: async (req, res)=>{
     //     try{
